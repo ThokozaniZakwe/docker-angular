@@ -6,3 +6,15 @@ before_install:
   - docker build -t thoks2021/docker-angular -f Dockerfile.dev .
 
 script: -docker run thoks2021/docker-angular npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "af-south-1"
+  app: docker-angular
+  env: "Dockerangular-env"
+  bucket_name: "elasticbeanstalk-af-south-1-061804277481"
+  bucket_path: "docker-angular"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: "$AWS_SECRET_KEY"
